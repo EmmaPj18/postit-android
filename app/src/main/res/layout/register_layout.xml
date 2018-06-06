@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageViewLogoSignup"
         android:layout_width="120dp"
         android:layout_height="160dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
         android:contentDescription="@string/logo_description"
-        app:srcCompat="@drawable/send" />
+        android:src="@drawable/send"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.109" />
 
     <EditText
         android:id="@+id/editUser"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/imageViewLogoSignup"
         android:background="@color/transparent"
         android:drawableLeft="@drawable/ic_action_user"
         android:drawableStart="@drawable/ic_action_user"
@@ -32,15 +31,17 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewLogoSignup"
+        app:layout_constraintVertical_bias="0.111" />
 
     <EditText
         android:id="@+id/editPass"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/editUser"
-        android:layout_marginTop="30dp"
         android:background="@color/transparent"
         android:drawableLeft="@drawable/ic_action_pass"
         android:drawableStart="@drawable/ic_action_pass"
@@ -50,15 +51,17 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editUser"
+        app:layout_constraintVertical_bias="0.089" />
 
     <EditText
         android:id="@+id/editPassConfirm"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/editPass"
-        android:layout_marginTop="30dp"
         android:background="@color/transparent"
         android:drawableLeft="@drawable/ic_action_pass"
         android:drawableStart="@drawable/ic_action_pass"
@@ -68,20 +71,27 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editPass"
+        app:layout_constraintVertical_bias="0.108" />
 
     <android.support.v7.widget.CardView
         android:id="@+id/SignUpButton"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/editPassConfirm"
-        android:layout_marginTop="30dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardBackgroundColor="@color/colorPrimaryDark"
-        app:cardElevation="10dp">
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editPassConfirm"
+        app:layout_constraintVertical_bias="0.282">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -102,9 +112,17 @@
         android:id="@+id/GoLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/SignUpButton"
-        android:layout_marginTop="30dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/signup_login"
-        android:textColor="@color/white" />
-</RelativeLayout>
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SignUpButton" />
+
+</android.support.constraint.ConstraintLayout>

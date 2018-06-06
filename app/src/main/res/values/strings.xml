@@ -8,4 +8,15 @@
     <string name="cardview_signup">Sign Up</string>
     <string name="login_signup">Register Here</string>
     <string name="signup_login">Already a member? Login</string>
+    <string name="actions_group">Actions</string>
+
+    <string name="menu_post">Post</string>
+
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 </resources>
