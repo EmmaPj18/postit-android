@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "657270972714",
+    "firebase_url": "https://post-it-android.firebaseio.com",
+    "project_id": "post-it-android",
+    "storage_bucket": "post-it-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:657270972714:android:1a88409bba683594",
+        "android_client_info": {
+          "package_name": "com.emmapj18.postit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "657270972714-0on8qg4lol7stlvmoqvsi310c75ep44m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSWUog2JG85bcgWYXdehjhHmJPLnjwDxQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Post It</string>
+    <string name="logo_description">Logotype of App</string>
+    <string name="pasword_hint">Password</string>
+    <string name="confirmpasword_hint">Confirm Password</string>
+    <string name="username_hint">Username or Email</string>
+    <string name="cardview_login">Login</string>
+    <string name="cardview_signup">Sign Up</string>
+    <string name="login_signup">Register Here</string>
+    <string name="signup_login">Already a member? Login</string>
+</resources>
