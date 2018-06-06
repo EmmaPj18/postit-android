@@ -1,18 +1,18 @@
 package com.emmapj18.postit;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity {
 
 
     FirebaseAuth mAuth;
+    Drawer sideBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,20 +20,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        mAuth = FirebaseAuth.getInstance();
-        Button button = findViewById(R.id.LogOutButton);
-        button.setOnClickListener(this);
-    }
+        sideBar = new SideBar(this).getMenu();
+        sideBar.openDrawer();
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.LogOutButton: {
-                mAuth.signOut();
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
-                break;
-            }
-        }
+        mAuth = FirebaseAuth.getInstance();
     }
 }

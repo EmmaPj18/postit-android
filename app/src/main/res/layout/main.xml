@@ -6,11 +6,4 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
     tools:context=".LoginActivity">
-
-    <Button
-        android:id="@+id/LogOutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="259dp"
-        android:text="Log Out" />
 </RelativeLayout>

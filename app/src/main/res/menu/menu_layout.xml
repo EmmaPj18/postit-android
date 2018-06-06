@@ -3,15 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item android:title="@string/actions_group">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/nav_post"
-                    android:icon="@drawable/ic_action_post"
-                    android:title="@string/menu_post" />
-            </group>
-        </menu>
-    </item>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_post"
+            android:icon="@drawable/ic_action_post"
+            android:title="@string/menu_post" />
+    </group>
 
 </menu>

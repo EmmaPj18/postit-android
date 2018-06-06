@@ -15,8 +15,4 @@
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
-    <style name="AppTheme.Launcher.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.Launcher.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
 </resources>
