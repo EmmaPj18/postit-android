@@ -20,7 +20,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
-    public static final String EMAIL = "USER_MAIL";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +74,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void startMainActivity(FirebaseUser user) {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        intent.putExtra(EMAIL, (user != null) ? user.getEmail() : "ERROR GETTING EMAIL");
         startActivity(intent);
     }
 }

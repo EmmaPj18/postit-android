@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_gravity="center"
+    style="?android:attr/buttonBarStyle"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/buttonPost"
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        style="?android:attr/buttonBarButtonStyle"
+        android:padding="16dp"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimaryDark"
+        android:drawableLeft="@drawable/ic_action_post"
+        android:drawableStart="@drawable/ic_action_post"
+        android:layout_weight="1"
+        android:text="Post" />
+
+    <Button
+        android:id="@+id/buttonHome"
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        style="?android:attr/buttonBarButtonStyle"
+        android:padding="16dp"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimaryDark"
+        android:layout_weight="1"
+        android:drawableLeft="@drawable/ic_action_home"
+        android:drawableStart="@drawable/ic_action_home"
+        android:text="Home" />
+
+    <Button
+        android:id="@+id/buttonProfile"
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimaryDark"
+        style="?android:attr/buttonBarButtonStyle"
+        android:drawableStart="@drawable/ic_action_user"
+        android:drawableLeft="@drawable/ic_action_user"
+        android:layout_weight="1"
+        android:text="Profile"
+        />
+</LinearLayout>
