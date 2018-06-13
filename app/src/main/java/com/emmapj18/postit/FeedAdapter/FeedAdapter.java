@@ -9,23 +9,29 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.emmapj18.postit.Feed;
+import com.emmapj18.postit.Models.Feed;
+import com.emmapj18.postit.Helpers.FirebaseHelper;
 import com.emmapj18.postit.R;
 import java.util.List;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
 
-    private final List<Feed> items;
-    private final Context context;
+    private List<Feed> items;
+    private Context context;
 
-    public FeedAdapter(Context context, List<Feed> items) {
-        this.items = items;
+    public FeedAdapter(Context context) {
+        this.items = null;
         this.context = context;
     }
 
+    public void setItems(List<Feed> items) {
+        this.items = items;
+    }
+
     @Override
-    public int getItemCount() { return items.size(); }
+    public int getItemCount() {
+        return (items != null) ? items.size() : 0;
+    }
 
     @NonNull
     @Override
@@ -38,17 +44,19 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
     public void onBindViewHolder(@NonNull FeedViewHolder holder, int position) {
         Feed feed = items.get(position);
         holder._Description.setText(feed.description);
-        Glide.with(context).load(feed.imageUrl).into(holder._Image);
+        FirebaseHelper.setImage(feed.imageUrl, context, holder._Image);
+        holder._DateAdded.setText(feed.dateAdded);
     }
 
     static class FeedViewHolder extends RecyclerView.ViewHolder {
         ImageView _Image;
-        TextView _Description;
+        TextView _Description, _DateAdded;
 
         FeedViewHolder(View itemView) {
             super(itemView);
             _Image = itemView.findViewById(R.id.imageViewPost);
             _Description = itemView.findViewById(R.id.textViewPostDescription);
+            _DateAdded = itemView.findViewById(R.id.textViewDateAdded);
         }
     }
 }

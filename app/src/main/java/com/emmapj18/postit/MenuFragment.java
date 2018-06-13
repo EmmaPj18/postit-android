@@ -10,16 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.emmapj18.postit.Listeners.MenuListener;
+
 public class MenuFragment extends Fragment implements View.OnClickListener {
 
-    private MenuFragmentListener mListener;
+    private MenuListener mListener;
 
     public MenuFragment() { }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof MenuFragmentListener) mListener = (MenuFragmentListener) context;
+        if (context instanceof MenuListener) mListener = (MenuListener) context;
         else throw new ClassCastException(context.toString() + " must implement MenuFragment.MenuFragmentListener");
     }
 
@@ -57,9 +59,5 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public interface MenuFragmentListener {
-        void onHomeButtonPressed();
-        void onPostButtonPressed();
-        void onProfileButtonPressed();
-    }
+
 }

@@ -5,9 +5,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.emmapj18.postit.Helpers.FirebaseHelper;
+import com.emmapj18.postit.Listeners.FeedListener;
+import com.emmapj18.postit.Listeners.MenuListener;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity implements MenuFragment.MenuFragmentListener{
+public class MainActivity extends AppCompatActivity implements MenuListener{
 
     FirebaseAuth mAuth;
 
@@ -31,12 +34,12 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.Menu
 
     @Override
     public void onHomeButtonPressed() {
-
+        setFragment(R.id.frameLayoutBody, new FeedFragment());
     }
 
     @Override
     public void onPostButtonPressed() {
-
+        setFragment(R.id.frameLayoutBody, new PostFragment());
     }
 
     @Override

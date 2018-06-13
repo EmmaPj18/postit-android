@@ -12,27 +12,52 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.emmapj18.postit.FeedAdapter.FeedAdapter;
+import com.emmapj18.postit.Helpers.FirebaseHelper;
+import com.emmapj18.postit.Listeners.FeedListener;
+import com.emmapj18.postit.Models.Feed;
 
+import java.util.Comparator;
 import java.util.List;
 
-public class FeedFragment extends Fragment {
+public class FeedFragment extends Fragment implements FeedListener{
+
+    private FeedAdapter adapter;
+
+    @Override
+    public void onRetrieveFeeds(List<Feed> feeds) {
+
+        feeds.sort(Comparator.comparing(Feed::getDateAdded).reversed());
+
+        adapter.setItems(feeds);
+        adapter.notifyDataSetChanged();
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.feed_fragment, container, false);
+
+        View rootView = inflater.inflate(R.layout.feed_fragment, container, false);
+
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerViewContent);
+        recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        adapter = new FeedAdapter(rootView.getContext());
+        recyclerView.setAdapter(adapter);
+
+        FirebaseHelper.getFeeds(this);
+
+        return rootView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
 
-        List<Feed> feeds = Feed.getList();
-
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewContent);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(new FeedAdapter(view.getContext(), feeds));
+    @Override
+    public void onResume() {
+        super.onResume();
+        FirebaseHelper.getFeeds(this);
     }
 }
