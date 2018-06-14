@@ -52,7 +52,7 @@
         android:drawableLeft="@drawable/ic_action_pass"
         android:drawableStart="@drawable/ic_action_pass"
         android:ems="10"
-        android:hint="@string/pasword_hint"
+        android:hint="@string/password_hint"
         android:inputType="textPassword"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -94,7 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="@string/cardview_login"
+                android:text="@string/cardView_login"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
         </RelativeLayout>
@@ -110,7 +110,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/login_signup"
+        android:text="@string/login_signUp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

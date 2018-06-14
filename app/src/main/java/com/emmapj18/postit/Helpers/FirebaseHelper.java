@@ -18,12 +18,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FirebaseHelper {
     private static final String FEEDS_NODE = "feeds";
+    private static final String IMAGE_URL = "imagenes/";
 
     public static void getFeeds(final FeedListener listener) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(FEEDS_NODE);
@@ -33,7 +35,7 @@ public class FirebaseHelper {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<Feed> feeds = new ArrayList<>();
 
-                for (DataSnapshot nodeDS: dataSnapshot.getChildren()){
+                for (DataSnapshot nodeDS : dataSnapshot.getChildren()) {
                     Feed feed = nodeDS.getValue(Feed.class);
                     feeds.add(feed);
                 }
@@ -43,7 +45,7 @@ public class FirebaseHelper {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                databaseError.toException().printStackTrace();
             }
         });
     }
@@ -60,16 +62,24 @@ public class FirebaseHelper {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference imageReference = storage.getReference().child(imageUrl);
 
-        imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(context).load(uri).into(imageView);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                e.printStackTrace();
-            }
-        });
+        imageReference.getDownloadUrl()
+                .addOnSuccessListener((Uri uri) -> Glide.with(context).load(uri).into(imageView))
+                .addOnFailureListener((Exception e) -> e.printStackTrace());
+    }
+
+    public static String uploadImage(Uri file) {
+        String url = IMAGE_URL + file.getLastPathSegment();
+        final StringBuilder result = new StringBuilder().append("");
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference imageReference = storage.getReference().child(url);
+        UploadTask uploadTask = imageReference.putFile(file);
+
+        uploadTask.addOnFailureListener((Exception e) ->
+                e.printStackTrace()
+        ).addOnSuccessListener((UploadTask.TaskSnapshot taskSnapshot) ->
+                result.append(url)
+        );
+
+        return result.toString().trim();
     }
 }

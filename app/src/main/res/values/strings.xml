@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">Post It</string>
     <string name="logo_description">Logotype of App</string>
-    <string name="pasword_hint">Password</string>
-    <string name="confirmpasword_hint">Confirm Password</string>
+    <string name="password_hint">Password</string>
+    <string name="confirmPassword_hint">Confirm Password</string>
     <string name="username_hint">Username or Email</string>
-    <string name="cardview_login">Login</string>
-    <string name="cardview_signup">Sign Up</string>
-    <string name="login_signup">Register Here</string>
-    <string name="signup_login">Already a member? Login</string>
+    <string name="cardView_login">Login</string>
+    <string name="cardView_signUp">Sign Up</string>
+    <string name="login_signUp">Register Here</string>
+    <string name="signUp_login">Already a member? Login</string>
     <string name="actions_group">Actions</string>
 
     <string name="menu_post">Post</string>
@@ -22,4 +22,9 @@
 
     <string name="loremIpsum">Nam porta blandit lacus nec malesuada. Morbi sit amet mauris sodales lorem commodo dapibus. Nulla fringilla lectus quis quam dapibus dapibus vel in ex. Nullam nec convallis eros, sed elementum urna. Fusce sollicitudin eleifend enim, in gravida nulla. Duis eget libero nec velit faucibus varius. In pulvinar nulla vel augue mattis, nec dictum lectus gravida.</string>
     <string name="dateAdded">13&#8211;06&#8211;2018 3:40 PM</string>
+
+    <string name="submitButton">Submit</string>
+    <string name="cancelButton">Cancel</string>
+    <string name="submitDescription">Provide a description</string>
+    <string name="submitImage">Image of the submit</string>
 </resources>

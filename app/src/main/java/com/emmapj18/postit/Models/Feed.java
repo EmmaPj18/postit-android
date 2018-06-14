@@ -10,9 +10,10 @@ public class Feed {
     public String description;
     public String imageUrl;
     public String dateAdded;
+    public String location;
 
 
-    private static final String DATE_PATTERN = "dd-MM-yyyy hh:mm a";
+    public static final String DATE_PATTERN = "dd-MM-yyyy hh:mm a";
 
     public Date getDateAdded() {
         DateFormat format = new SimpleDateFormat(DATE_PATTERN, Locale.getDefault());
