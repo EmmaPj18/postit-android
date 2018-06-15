@@ -3,6 +3,7 @@ package com.emmapj18.postit.FeedAdapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,17 +47,21 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
         holder._Description.setText(feed.description);
         FirebaseHelper.setImage(feed.imageUrl, context, holder._Image);
         holder._DateAdded.setText(feed.dateAdded);
+        holder._User.setText(feed.user);
+        holder._Location.setText(feed.location);
     }
 
     static class FeedViewHolder extends RecyclerView.ViewHolder {
         ImageView _Image;
-        TextView _Description, _DateAdded;
+        TextView _Description, _DateAdded, _Location, _User;
 
         FeedViewHolder(View itemView) {
             super(itemView);
             _Image = itemView.findViewById(R.id.imageViewPost);
-            _Description = itemView.findViewById(R.id.textViewPostDescription);
+            _Description = itemView.findViewById(R.id.textViewDescription);
+            _Location = itemView.findViewById(R.id.textViewLocation);
             _DateAdded = itemView.findViewById(R.id.textViewDateAdded);
+            _User = itemView.findViewById(R.id.textViewUser);
         }
     }
 }

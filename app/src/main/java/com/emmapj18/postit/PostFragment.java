@@ -1,15 +1,10 @@
 package com.emmapj18.postit;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,29 +14,28 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.emmapj18.postit.Helpers.CameraHelper;
+import com.emmapj18.postit.Helpers.CommonHelper;
 import com.emmapj18.postit.Helpers.FirebaseHelper;
+import com.emmapj18.postit.Helpers.ImageHelper;
 import com.emmapj18.postit.Helpers.LocationHelper;
-import com.emmapj18.postit.Listeners.CameraListener;
-import com.emmapj18.postit.Listeners.MyLocationListener;
 import com.emmapj18.postit.Models.Feed;
+import com.google.android.gms.location.LocationListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
+import java.util.Date;
 
-public class PostFragment extends Fragment implements CameraListener, MyLocationListener, View.OnClickListener {
+public class PostFragment extends Fragment implements View.OnClickListener, LocationListener {
 
     private ImageView mImageView;
     private EditText mEditText;
-    private CameraHelper cameraHelper;
-    private LocationHelper locationHelper;
-    private Context context;
+    private ImageHelper imageHelper;
 
     private String imageUrl;
     private String location;
+    private FirebaseAuth mAuth;
+
 
     @Nullable
     @Override
@@ -52,40 +46,40 @@ public class PostFragment extends Fragment implements CameraListener, MyLocation
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         mImageView = view.findViewById(R.id.imageViewImagePost);
+        mImageView.setOnClickListener(this);
         view.findViewById(R.id.buttonSubmit).setOnClickListener(this);
         view.findViewById(R.id.buttonCancel).setOnClickListener(this);
         mEditText = view.findViewById(R.id.editTextDescriptionPost);
-
-        mImageView.setOnClickListener(this);
-        cameraHelper = new CameraHelper(this, this.getActivity());
-        locationHelper = new LocationHelper(view.getContext());
-        context = view.getContext();
-
-        locationHelper.fetchLocation(LocationHelper.TIMEOUT_TIME, LocationHelper.Accuracy.FINE, this);
-        cameraHelper.setCameraListener(this);
-        Location location = locationHelper.getCachedLocation();
-        location.getLatitude();
-
+        imageHelper = new ImageHelper(this.getActivity(), this);
+        LocationHelper locationHelper = new LocationHelper(this.getContext(), this);
+        locationHelper.getLastLocation();
+        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        cameraHelper.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ImageHelper.REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            Bundle extra = data.getExtras();
+
+            if (extra != null) {
+                Bitmap bitmap = (Bitmap)extra.get("data");
+
+                if (bitmap != null) {
+                    mImageView.setImageBitmap(bitmap);
+                    imageUrl = FirebaseHelper.uploadImage(bitmap);
+                }
+            }
+        }
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imageViewImagePost:
-                new AlertDialog.Builder(this.getContext())
-                        .setIcon(R.drawable.ic_menu_camera)
-                        .setTitle("Camera or Gallery")
-                        .setMessage("Select photo from camera or gallery?")
-                        .setPositiveButton("Yes", (DialogInterface dialog, int which) -> cameraHelper.takePhotoWithCamera())
-                        .setNegativeButton("No", (DialogInterface dialog, int which) -> cameraHelper.selectImageFromGallery())
-                        .show();
+                imageHelper.startCamera();
                 break;
             case R.id.buttonSubmit:
                     uploadData();
@@ -96,69 +90,33 @@ public class PostFragment extends Fragment implements CameraListener, MyLocation
         }
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        if (location != null) {
+            this.location = location.getLatitude() + "," + location.getLongitude();
+        }
+    }
+
     public void finish() {
-        locationHelper.stopFetch();
         MainActivity.setFragment(MainActivity.mManager, R.id.frameLayoutBody, new FeedFragment());
     }
 
     public void uploadData(){
         Feed feed = new Feed();
+        FirebaseUser user = mAuth.getCurrentUser();
 
-        feed.dateAdded = new SimpleDateFormat(Feed.DATE_PATTERN, Locale.getDefault())
-                .format(Calendar.getInstance().getTime());
-        feed.imageUrl = imageUrl;
-        feed.description = mEditText.getText().toString();
-        feed.location = location;
+        try {
+            feed.dateAdded = CommonHelper.convertDateToString(new Date(Calendar.getInstance().getTime().getTime()));
+            feed.imageUrl = imageUrl;
+            feed.description = mEditText.getText().toString();
+            feed.location = location;
+            feed.user = user.getEmail();
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
         FirebaseHelper.saveFeed(feed);
         finish();
-    }
-
-    @Override
-    public void onImageTakenFromCamera(Uri uri, File imageFile) {
-        cameraHelper.requestCropImage(uri, 800, 450, 16, 9);
-    }
-
-    @Override
-    public void onImageSelectedFromGallery(Uri uri, File imageFile) {
-        cameraHelper.requestCropImage(uri, 800, 450, 16, 9);
-    }
-
-    @Override
-    public void onImageCropped(Uri uri, File imageFile) {
-        try {
-
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
-            mImageView.setImageBitmap(bitmap);
-            imageUrl = FirebaseHelper.uploadImage(uri);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onLocationFailed(String message, int messageId) {
-        locationHelper.stopFetch();
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        this.location = location.getLongitude() + "," + location.getLatitude();
-    }
-
-    @Override
-    public void onLocationAcquired(Location location) {
-        this.location = location.getLongitude() + "," + location.getLatitude();
-    }
-
-    @Override
-    public void onRequest() {
-
-    }
-
-    @Override
-    public void onTimeout() {
-
     }
 }

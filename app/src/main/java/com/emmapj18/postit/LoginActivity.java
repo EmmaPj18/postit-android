@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();
 
-        if(user != null) startMainActivity(user);
+        if(user != null) startMainActivity();
     }
 
     @Override
@@ -65,14 +65,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Log.w("AUTH", "Login not Succesfull with this email" + email + " and password" + password);
                     Toast.makeText(LoginActivity.this, "Authtentication Failed", Toast.LENGTH_SHORT).show();
                 } else {
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    startMainActivity(user);
+                    startMainActivity();
                 }
             }
         });
     }
 
-    private void startMainActivity(FirebaseUser user) {
+    private void startMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
     }
