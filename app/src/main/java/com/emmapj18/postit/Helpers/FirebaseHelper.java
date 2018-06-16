@@ -2,6 +2,7 @@ package com.emmapj18.postit.Helpers;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.emmapj18.postit.Models.Feed;
 import com.emmapj18.postit.Listeners.FeedListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +31,9 @@ import java.util.List;
 public class FirebaseHelper {
     private static final String FEEDS_NODE = "feeds";
     private static final String IMAGE_URL = "imagenes/";
+
+    private static Uri shareUri;
+    private static Bitmap bitmap;
 
     public static void getFeeds(final FeedListener listener) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(FEEDS_NODE);
@@ -71,8 +77,21 @@ public class FirebaseHelper {
         StorageReference imageReference = storage.getReference().child(imageUrl);
 
         imageReference.getDownloadUrl()
-                .addOnSuccessListener((Uri uri) -> Glide.with(context).load(uri).into(imageView))
-                .addOnFailureListener((Exception e) -> e.printStackTrace());
+                .addOnSuccessListener((Uri uri) ->
+                    Glide.with(context).load(uri).into(imageView)
+                ).addOnFailureListener((Exception e) -> e.printStackTrace());
+    }
+
+    public static Bitmap downloadImage(String imageUrl) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference imageReference = storage.getReference().child(imageUrl);
+
+        imageReference.getBytes(Long.MAX_VALUE).addOnSuccessListener((byte[] bytes) ->
+                    bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length))
+                .addOnFailureListener((@NonNull Exception e) -> e.printStackTrace());
+
+        return bitmap;
+
     }
 
     public static String uploadImage(Bitmap bitmap) {

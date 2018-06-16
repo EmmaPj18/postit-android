@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Post It</string>
+    <string name="facebook_app_id">2153292728224242</string>
     <string name="logo_description">Logotype of App</string>
     <string name="password_hint">Password</string>
     <string name="confirmPassword_hint">Confirm Password</string>
@@ -27,4 +28,5 @@
     <string name="cancelButton">Cancel</string>
     <string name="submitDescription">Provide a description</string>
     <string name="submitImage">Image of the submit</string>
+    <string name="share">Share</string>
 </resources>

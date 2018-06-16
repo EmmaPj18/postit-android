@@ -8,6 +8,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -42,7 +44,7 @@ public class FeedFragment extends Fragment implements FeedListener{
         recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        adapter = new FeedAdapter(rootView.getContext());
+        adapter = new FeedAdapter(rootView.getContext(), this);
         recyclerView.setAdapter(adapter);
 
         FirebaseHelper.getFeeds(this);

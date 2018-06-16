@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 public class PermissionHelper {
     private static final int ALL_PERMISSIONS_RESULT = 101;
+    private static final String EMAIL_PERMISSION = "email";
+    private static final String PUBLISH_ACTIONS_PERMISION = "publish_actions";
+
 
     private Context context;
     private Activity activity;
